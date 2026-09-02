@@ -1,7 +1,5 @@
 # Cloudflare Docs Agent
 
-> Assignment prompt and build history: [PROMPT_HISTORY.md](./PROMPT_HISTORY.md)
->
 > Hosted frontend: [tanmay-worker-agent.pages.dev](https://tanmay-worker-agent.pages.dev/)
 
 > Application URL : https://tanmay-worker-agent.pages.dev/
@@ -14,8 +12,7 @@ https://github.com/user-attachments/assets/649150e3-cf4e-4928-8535-bf78d084b7df
 
 
 An AI-powered chat assistant for Cloudflare's Agents, Workers AI, and Durable
-Objects documentation. Built for the Cloudflare AI-powered application
-assignment.
+Objects documentation, built on Cloudflare's edge-native stack.
 
 ## What it does
 
@@ -164,5 +161,5 @@ wasn't necessary for what's covered so far.
   fine at this corpus size, would need a real tokenizer for anything larger.
 - The relevance threshold (0.6) was tuned against real logged similarity
   scores during development, not a large labeled query/doc set.
-- No rate limiting on the chat endpoint - fine for a take-home demo, a real
+- No rate limiting on the chat endpoint - fine for a small demo, a real
   deployment would want one.
