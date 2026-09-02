@@ -11,9 +11,9 @@ const app = new Hono<{ Bindings: Env }>();
  *
  * Both routes in chatRoutes return a raw Response straight from
  * stub.fetch() rather than a Hono response helper - setting headers via
- * c.header() before next() gets silently discarded when a handler replaces
- * c.res with its own Response object. Setting headers on c.res after
- * next() resolves works regardless of how the response was built.
+ * c.header() before next() gets silently discarded when a handler
+ * replaces c.res with its own Response object. Setting headers on c.res
+ * after next() resolves works regardless of how the response was built.
  */
 app.use('*', async (c, next) => {
   if (c.req.method === 'OPTIONS') {

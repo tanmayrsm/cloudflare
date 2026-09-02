@@ -45,6 +45,25 @@ body {
   flex-direction: column;
   gap: 14px;
   padding-bottom: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: #3a3d44 transparent;
+}
+
+.chat-messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: #3a3d44;
+  border-radius: 4px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background: #4a4d54;
 }
 
 .chat-empty {

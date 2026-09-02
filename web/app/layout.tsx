@@ -3,7 +3,7 @@ import type { JSX } from 'react';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Cloudflare Docs Agent',
+  title: "Tanmay's Cloudflare Agent",
   description:
     'An AI-powered assistant for Cloudflare Agents, Workers AI, and Durable Objects docs.',
 };

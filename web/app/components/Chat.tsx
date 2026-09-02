@@ -22,6 +22,7 @@ export default function Chat(): JSX.Element {
   const [isSending, setIsSending] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
   const scrollAnchorRef = useRef<HTMLDivElement | null>(null);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   useEffect(() => {
     const id = getOrCreateSessionId();
@@ -37,6 +38,16 @@ export default function Chat(): JSX.Element {
   useEffect(() => {
     scrollAnchorRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  // Refocuses the input once a session is ready, and again after every
+  // response finishes streaming - the textarea itself is never disabled
+  // (see below), so this is purely about restoring cursor position for
+  // convenience, not working around a focus-stripping disabled state.
+  useEffect(() => {
+    if (sessionId && !isSending) {
+      textareaRef.current?.focus();
+    }
+  }, [sessionId, isSending]);
 
   async function handleSend(): Promise<void> {
     const trimmed = input.trim();
@@ -99,7 +110,7 @@ export default function Chat(): JSX.Element {
   return (
     <div className="chat">
       <div className="chat-header">
-        <h1>Cloudflare docs assistant</h1>
+        <h1>Tanmay&apos;s Cloudflare agent</h1>
         <p>Ask about Agents, Workers AI, or Durable Objects.</p>
       </div>
 
@@ -146,12 +157,13 @@ export default function Chat(): JSX.Element {
 
       <div className="chat-input-row">
         <textarea
+          ref={textareaRef}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Ask a question..."
           rows={2}
-          disabled={!sessionId || isSending}
+          disabled={!sessionId}
         />
         <button
           onClick={() => void handleSend()}
