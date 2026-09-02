@@ -15,7 +15,7 @@ tag = "v1"
 new_sqlite_classes = ["ChatSession"]
 
 [vars]
-ALLOWED_ORIGIN = "http://localhost:3000"
+ALLOWED_ORIGIN = "https://tanmay-worker-agent.pages.dev"
 
 # Override ALLOWED_ORIGIN with your deployed frontend's origin before going to production:
 #   wrangler secret put ALLOWED_ORIGIN
