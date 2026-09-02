@@ -56,32 +56,33 @@ export default function Chat(): JSX.Element {
     try {
       await streamChatMessage(WORKER_URL, sessionId, trimmed, (event) => {
         setMessages((prev) => {
-          const next = [...prev];
-          const last = next[next.length - 1];
+          const last = prev[prev.length - 1];
           if (!last || last.role !== 'assistant') return prev;
 
+          const updated: DisplayMessage = { ...last };
           if (event.type === 'token') {
-            last.content += event.value;
+            updated.content = updated.content + event.value;
           } else if (event.type === 'sources') {
-            last.sources = event.value;
+            updated.sources = event.value;
           } else if (event.type === 'done') {
-            last.isStreaming = false;
+            updated.isStreaming = false;
           } else if (event.type === 'error') {
-            last.error = event.value;
-            last.isStreaming = false;
+            updated.error = event.value;
+            updated.isStreaming = false;
           }
-          return next;
+          return [...prev.slice(0, -1), updated];
         });
       });
     } catch (err) {
       setMessages((prev) => {
-        const next = [...prev];
-        const last = next[next.length - 1];
-        if (last && last.role === 'assistant') {
-          last.error = err instanceof Error ? err.message : 'Something went wrong.';
-          last.isStreaming = false;
-        }
-        return next;
+        const last = prev[prev.length - 1];
+        if (!last || last.role !== 'assistant') return prev;
+        const updated: DisplayMessage = {
+          ...last,
+          error: err instanceof Error ? err.message : 'Something went wrong.',
+          isStreaming: false,
+        };
+        return [...prev.slice(0, -1), updated];
       });
     } finally {
       setIsSending(false);
