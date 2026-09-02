@@ -10,11 +10,14 @@ import docEmbeddings from '../data/doc-embeddings.json';
  * the model should say so instead of confidently improvising an answer
  * from its own general knowledge.
  *
- * 0.75 is a starting point, not a tuned constant - in a real deployment
- * this would be validated against a labeled set of query/doc pairs rather
- * than picked by feel.
+ * 0.6, not 0.75: short, generic queries ("tell me about agents") score
+ * lower against long technical passages than intuition suggests, even
+ * when clearly on-topic. 0.75 was rejecting real matches. This is still
+ * an untuned starting point - see the console.warn below, which logs
+ * every candidate's real score so it can be tuned from actual data
+ * instead of another guess.
  */
-export const RELEVANCE_THRESHOLD = 0.75;
+export const RELEVANCE_THRESHOLD = 0.6;
 
 const TOP_K = 4;
 
@@ -54,6 +57,15 @@ export async function retrieveRelevantChunks(
     sourceTitle: doc.sourceTitle,
     score: cosineSimilarity(queryVector, doc.embedding),
   }));
+
+  // Logs every candidate's real score, not just the ones that pass -
+  // visible in `wrangler dev`'s terminal output. This is what actual
+  // threshold tuning should be based on, not another guess.
+  const topScores = [...scored]
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 5)
+    .map((c) => `${c.score.toFixed(3)} - ${c.sourceTitle}`);
+  console.warn(`Retrieval scores for "${query}":`, topScores);
 
   return scored
     .filter((chunk) => chunk.score >= RELEVANCE_THRESHOLD)
