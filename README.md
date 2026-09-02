@@ -2,6 +2,15 @@
 
 > Assignment prompt and build history: [PROMPT_HISTORY.md](./PROMPT_HISTORY.md)
 
+> Application URL : https://tanmay-worker-agent.pages.dev/
+
+Snapshot - <img width="1299" height="1565" alt="image" src="https://github.com/user-attachments/assets/0c6f796b-fb6b-4bf8-a3ce-0b4839b6f4a3" />
+
+Working video -
+https://github.com/user-attachments/assets/649150e3-cf4e-4928-8535-bf78d084b7df
+
+
+
 An AI-powered chat assistant for Cloudflare's Agents, Workers AI, and Durable
 Objects documentation. Built for the Cloudflare AI-powered application
 assignment.
