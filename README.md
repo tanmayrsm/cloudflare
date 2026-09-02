@@ -1,6 +1,8 @@
 # Cloudflare Docs Agent
 
 > Assignment prompt and build history: [PROMPT_HISTORY.md](./PROMPT_HISTORY.md)
+>
+> Hosted frontend: [tanmay-worker-agent.pages.dev](https://tanmay-worker-agent.pages.dev/)
 
 An AI-powered chat assistant for Cloudflare's Agents, Workers AI, and Durable
 Objects documentation. Built for the Cloudflare AI-powered application
